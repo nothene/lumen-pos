@@ -38,7 +38,7 @@ class ProductSeeder extends Seeder
                 'recipe_id' => 2,
             ],
             [
-                'company_id' => 1,
+                'company_id' => 2,
                 'name' => 'Tepung',
                 'code' => 'TPG',
                 'is_raw_material' => true,

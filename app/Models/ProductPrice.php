@@ -19,7 +19,10 @@ class ProductPrice extends Model
      * @var string[]
      */
     protected $fillable = [
-        'company_id', 'product_id', 'price', 'published_at'
+        'company_id',
+        'product_id', 
+        'price', 
+        'published_at'
     ];
 
     /**
@@ -34,4 +37,8 @@ class ProductPrice extends Model
         return $this->belongsTo(Product::class, 'product_id', 'ID');
     }
     
+    // useful?
+    public function company() {
+        return $this->belongsTo(Product::class, 'company_id', 'ID');
+    }    
 }
