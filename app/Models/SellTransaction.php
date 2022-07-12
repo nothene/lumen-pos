@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
-class SellTransactionDetail extends Model
+class SellTransaction extends Model
 {
-    protected $table = 'companies';
+    protected $table = 'sell_transactions';
     protected $primaryKey = 'ID';
 
     /**
@@ -20,15 +20,17 @@ class SellTransactionDetail extends Model
      * @var string[]
      */
     protected $fillable = [
-        'sell_transaction_id',
-        'product_id',
-        'qty',
-        'price',
-        'disc_1',
-        'disc_2',
+        'company_id',
+        'transaction_date',
+        'customer_name',
+        'is_cancelled',
+        'cancelled_at',
+        'is_printed',
+        'printed_at',
+        'sub_total',
         'disc_amount',
-        'total',
-        'cogs',
+        'grand_total',
+        'notes',
     ];
 
     /**
@@ -39,4 +41,5 @@ class SellTransactionDetail extends Model
     protected $hidden = [
     ];
 
+    
 }

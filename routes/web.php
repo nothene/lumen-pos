@@ -19,20 +19,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-Route::group(['prefix' => 'api'], 
+Route::group(['prefix' => 'products'], 
     function () use ($router) {
-        Route::get('/users/{id}', 'Api\UserController@index');
-        Route::get('/users', [
-            'as' => 'home',
-            'uses' => 'Api\UserController@index'
+        Route::get('/{id}', 'ProductController@index');
+        Route::get('/', [
+            'as' => 'ProductHome',
+            'uses' => 'ProductController@index'
         ]);
-        Route::post('/users/create', [
-            'uses' => 'Api\UserController@create'
+        Route::post('/', [
+            'uses' => 'ProductController@create'
         ]);
-        Route::put('/users/update/{id}', [
-            'uses' => 'Api\UserController@update'
-        ]);
-        Route::delete('/users/delete/{id}', [
-            'uses' => 'Api\UserController@delete'
+        Route::put('/{id}', [
+            'uses' => 'ProductController@update'
+        ]);        
+        Route::delete('/{id}', [
+            'uses' => 'ProductController@delete'
         ]); 
     });

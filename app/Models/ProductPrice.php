@@ -12,6 +12,7 @@ use Laravel\Lumen\Auth\Authorizable;
 class ProductPrice extends Model
 {
     protected $table = 'product_price';
+    protected $primaryKey = 'ID';
 
     /**
      * The attributes that are mass assignable.
