@@ -11,6 +11,8 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class ProductOnhand extends Model
 {
+    use HasFactory;
+
     protected $table = 'product_onhands';
     protected $primaryKey = 'ID';
 

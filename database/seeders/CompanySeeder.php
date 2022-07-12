@@ -18,16 +18,16 @@ class CompanySeeder extends Seeder
         $data = [
             [
                 'name' => 'Daily Jalangkote',
-                'address' => 'Jl. Asia No. 12, Medan',
+                'address' => 'Jl. Makassar No. 21, Medan',
                 'is_active' => true,
             ],
             [
-                'name' => 'Toko Bahan Kue Sinar Asia',
+                'name' => 'Toko Kue Sinar Asia',
                 'address' => 'Jl. Asia No. 142, Medan',
                 'is_active' => true,
             ],                      
             [
-                'name' => 'Toko Bahan Pokok Kalimantan Baru',
+                'name' => 'Warung Makan Kalimantan Baru',
                 'address' => 'Jl. Kalimantan No. 56, Medan',
                 'is_active' => true,
             ],         
@@ -36,6 +36,11 @@ class CompanySeeder extends Seeder
                 'address' => 'Jl. Sumatera No. 30, Medan',
                 'is_active' => true,
             ],                     
+            [
+                'name' => 'Restoran Parapat Utama Rantau',
+                'address' => 'Jl. Parapat No. 45, Medan',
+                'is_active' => true,
+            ],            
         ];
 
         Company::truncate();
