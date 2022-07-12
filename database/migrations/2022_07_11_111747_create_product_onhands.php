@@ -17,7 +17,8 @@ return new class extends Migration
             $table->increments('ID')->unsigned();
             $table->integer('company_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned()->nullable();
-            $table->integer('qty')->unsigned();
+            // negative allowed
+            $table->integer('qty');
 
             // $table->foreign('company_id')->references('ID')
             //     ->on('companies')->onDelete('set null');

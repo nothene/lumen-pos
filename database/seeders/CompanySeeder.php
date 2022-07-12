@@ -22,15 +22,20 @@ class CompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Toko Sinar Asia',
+                'name' => 'Toko Bahan Kue Sinar Asia',
                 'address' => 'Jl. Asia No. 142, Medan',
                 'is_active' => true,
             ],                      
             [
-                'name' => 'Toko Kalimantan Baru',
+                'name' => 'Toko Bahan Pokok Kalimantan Baru',
                 'address' => 'Jl. Kalimantan No. 56, Medan',
                 'is_active' => true,
-            ],                  
+            ],         
+            [
+                'name' => 'Warung Sumatera Baru Asia',
+                'address' => 'Jl. Sumatera No. 30, Medan',
+                'is_active' => true,
+            ],                     
         ];
 
         Company::truncate();

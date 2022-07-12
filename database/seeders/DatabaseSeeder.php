@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             RecipeSeeder::class,
             ProductSeeder::class, 
-            ProductPriceSeeder::class,           
+            ProductPriceSeeder::class,   
+            RecipeDetailSeeder::class, 
+            ProductOnHandSeeder::class,
         ]);
     }
 }

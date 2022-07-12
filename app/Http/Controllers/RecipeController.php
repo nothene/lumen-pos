@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Recipe;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Throwable;
 
-class ProductController extends Controller
+class RecipeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,16 +21,12 @@ class ProductController extends Controller
 
     public function index($id = null){
         if($id == null){
-            $products = Product::orderBy('ID')->get();
-            return response()->json([$products], 200);
+            $recipes = Recipe::orderBy('ID')->get();
         }
         else{
-            $products = Product::find($id);
-            $prices = Product::find($id)->prices;
-            return response()->json([$products, $prices], 200);
+            $recipes = Recipe::where('ID', $id)->get();
         }
-        
-        
+        return response()->json($recipes, 200);
     }    
 
     public function create(Request $request){
@@ -50,7 +46,7 @@ class ProductController extends Controller
             'is_active' => ['required'],
         ]);
 
-        $product = new Product;
+        $product = new Recipe;
 
         if($request->input('company_id')){
             $product->company_id = $request->input('company_id');
@@ -69,20 +65,20 @@ class ProductController extends Controller
     }    
 
     public function delete($id){
-        $product = Product::find($id);
+        $product = Recipe::find($id);
         if(!$product){
-            return response('Product is not found', 404);
+            return response('Recipe is not found', 404);
         }
         $product->delete();
 
-        return response('Product deleted'. 200);
+        return response('Recipe deleted'. 200);
     }     
     
     public function update(Request $request, $id){
-        $product = Product::find($id);
+        $product = Recipe::find($id);
 
         if(!$product){
-            return response('Product is not found', 404);
+            return response('Recipe is not found', 404);
         }
 
         $this->validate($request, [
@@ -101,5 +97,37 @@ class ProductController extends Controller
         $product->recipe_id = $request->input('recipe_id');
 
         $product->save();
-    }    
+    }
+
+    public function getIngredient($id){
+        $note =  Recipe::find($id)->notes;
+        $ingredients = Recipe::find($id)->detail
+            ->map(function ($i, $note) {
+                return  [
+                    "name" => $i->product->name,
+                    "qty" => $i->qty_needed,
+                    "uom_name" => $i->product->uom_name,
+                ];
+            });
+
+        // $data = [];
+
+        // foreach($ingredients as $i){
+        //     $d = [
+        //         "name" => $i->product->name,
+        //         "qty" => $i->qty_needed,
+        //         "uom_name" => $i->product->uom_name,
+        //         ];
+        //     array_push($data, $d);
+        // }
+
+        // array_map(function($i) {
+        //     echo $i;
+        // }, $ingredients);
+
+        return response([
+            "ingredients" => $ingredients, 
+            "notes" => $note
+        ], 200);
+    }
 }

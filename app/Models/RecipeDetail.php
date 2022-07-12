@@ -11,7 +11,7 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class RecipeDetail extends Model
 {
-    protected $table = 'productions';
+    protected $table = 'recipe_details';
     protected $primaryKey = 'ID';
 
     /**
@@ -33,6 +33,8 @@ class RecipeDetail extends Model
     protected $hidden = [
     ];
 
-    
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id', 'ID');
+    }
 
 }

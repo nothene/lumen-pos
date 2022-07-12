@@ -46,6 +46,10 @@ class Product extends Model
         return $this->hasOne(Recipe::class, 'product_id', 'ID');
     }
 
+    public function quantity(){
+        return $this->hasMany(ProductOnhand::class, 'product_id', 'ID');
+    }
+
     public function company(){
         return $this->belongsTo(Company::class, 'company_id', 'ID');
     }

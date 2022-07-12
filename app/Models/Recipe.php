@@ -30,12 +30,8 @@ class Recipe extends Model
      */
     protected $hidden = [
     ];
-
-    public function prices(){
-        return $this->hasMany(ProductPrice::class, 'product_id', 'ID');
-    }
  
-    public function recipe(){
-
+    public function detail(){
+        return $this->hasMany(RecipeDetail::class, 'recipe_id', 'ID');
     }
 }

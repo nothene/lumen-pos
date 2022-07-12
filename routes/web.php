@@ -35,4 +35,24 @@ Route::group(['prefix' => 'products'],
         Route::delete('/{id}', [
             'uses' => 'ProductController@delete'
         ]); 
-    });
+    }
+);
+
+Route::group(['prefix' => 'recipes'], 
+    function () use ($router) {
+        Route::get('/{id}', 'RecipeController@getIngredient');
+        Route::get('/', [
+            'as' => 'RecipeHome',
+            'uses' => 'RecipeController@index'
+        ]);
+        Route::post('/', [
+            'uses' => 'RecipeController@create'
+        ]);
+        Route::put('/{id}', [
+            'uses' => 'RecipeController@update'
+        ]);        
+        Route::delete('/{id}', [
+            'uses' => 'RecipeController@delete'
+        ]); 
+    }
+);    
