@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class, 
             ProductPriceSeeder::class,   
             RecipeDetailSeeder::class, 
-            ProductOnHandSeeder::class,
+            ProductOnhandSeeder::class,
+            ProductPriceSeeder::class,
         ]);
     }
 }

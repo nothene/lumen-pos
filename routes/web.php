@@ -69,3 +69,37 @@ Route::group(['prefix' => 'production'],
         ]);
     }
 );    
+
+// Route::group(['prefix' => 'purchase'], 
+//     function () use ($router) {
+//         Route::get('/{id}', 'ProductionController@index');
+//         Route::get('/', [
+//             'as' => 'RecipeHome',
+//             'uses' => 'ProductionController@index'
+//         ]);
+//         Route::post('/', [
+//             'uses' => 'ProductionController@create'
+//         ]);
+//     }
+// );    
+
+// Route::group(['prefix' => 'sell'], 
+//     function () use ($router) {
+//         Route::get('/{id}', 'ProductionController@index');
+//         Route::get('/', [
+//             'as' => 'RecipeHome',
+//             'uses' => 'ProductionController@index'
+//         ]);
+//         Route::post('/', [
+//             'uses' => 'ProductionController@create'
+//         ]);
+//     }
+// );    
+
+Route::group(['prefix' => 'price'], 
+    function () use ($router) {
+        Route::post('/', [
+            'uses' => 'PriceController@create'
+        ]);
+    }
+);    

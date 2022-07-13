@@ -29,6 +29,12 @@ class ProductPriceSeeder extends Seeder
                 'product_id' => 2,
                 'price' => 6000,
                 'published_at' => Carbon::now(),            
+            ],
+            [
+                'company_id' => 1,
+                'product_id' => 1,
+                'price' => 6000,
+                'published_at' => Carbon::now(),            
             ]
         ];
 
