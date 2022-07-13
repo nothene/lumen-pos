@@ -6,6 +6,15 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    public $bindings = [
+        //ServerProvider::class => DigitalOceanServerProvider::class,
+    ];
+
+    public $singletons = [
+        
+    ];
+
     /**
      * Register any application services.
      *
@@ -13,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+    
     }
 }

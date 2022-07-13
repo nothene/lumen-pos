@@ -56,3 +56,16 @@ Route::group(['prefix' => 'recipes'],
         ]); 
     }
 );    
+
+Route::group(['prefix' => 'production'], 
+    function () use ($router) {
+        Route::get('/{id}', 'ProductionController@index');
+        Route::get('/', [
+            'as' => 'RecipeHome',
+            'uses' => 'ProductionController@index'
+        ]);
+        Route::post('/', [
+            'uses' => 'ProductionController@create'
+        ]);
+    }
+);    

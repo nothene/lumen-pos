@@ -66,10 +66,10 @@ class ProductOnHandSeeder extends Seeder
 
         ProductOnHand::truncate();
 
-        $data =  ProductOnhand::factory()->count(50)->make();
+        $data =  ProductOnhand::factory()->count(100)->make();
         
         foreach($data as $i){
-            echo $i . PHP_EOL;
+            //echo $i . PHP_EOL;
             $a = ProductOnhand::updateOrCreate(
                 [
                     'company_id' => $i->company_id,

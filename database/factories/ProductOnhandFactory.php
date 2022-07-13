@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\ProductOnhand;
 use App\Models\Company;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductOnhandFactory extends Factory
@@ -23,10 +24,11 @@ class ProductOnhandFactory extends Factory
     public function definition()
     {
         $cnt = count(Company::get());
+        $cnt2 = count(Product::get());
         return [
             'company_id' => rand(1, $cnt),
-            'product_id' => rand(1, $cnt),
-            'qty' => rand(10, 100),   
+            'product_id' => rand(1, $cnt2),
+            'qty' => rand(100, 1000),   
         ];
     }
 }

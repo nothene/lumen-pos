@@ -35,6 +35,16 @@ class Production extends Model
     protected $hidden = [
     ];
 
-    
+    public function recipe(){
+        return $this->belongsTo(Recipe::class, 'recipe_id', 'ID');
+    }
 
+    public function product(){
+        $recipe = $this->recipe;
+        return $recipe->hasOne(Product::class, 'recipe_id', 'ID');
+    }
+
+    public function company(){
+        return $this->belongsTo(Company::class, 'company_id', 'ID');
+    }
 }

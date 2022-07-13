@@ -35,6 +35,9 @@ class ProductOnhand extends Model
     protected $hidden = [
     ];
 
+    public function company(){
+        return $this->belongsTo(Company::class, 'company_id', 'ID');
+    }
     
 
 }
