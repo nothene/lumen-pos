@@ -70,6 +70,17 @@ Route::group(['prefix' => 'production'],
     }
 );    
 
+Route::group(['prefix' => 'price'], 
+    function () use ($router) {
+        Route::get('/{cId}/{pId}', [
+            'uses' => 'PriceController@index'
+        ]);        
+        Route::post('/{id}', [
+            'uses' => 'PriceController@create'
+        ]);
+    }
+);    
+
 // Route::group(['prefix' => 'purchase'], 
 //     function () use ($router) {
 //         Route::get('/{id}', 'ProductionController@index');
@@ -95,11 +106,3 @@ Route::group(['prefix' => 'production'],
 //         ]);
 //     }
 // );    
-
-Route::group(['prefix' => 'price'], 
-    function () use ($router) {
-        Route::post('/', [
-            'uses' => 'PriceController@create'
-        ]);
-    }
-);    
