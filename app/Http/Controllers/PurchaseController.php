@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PurchaseTransaction;
-use App\Services\PurchaseService;
+use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -29,7 +29,7 @@ class PurchaseController extends Controller
         return response()->json($purchase, 200);
     }    
 
-    public function create(Request $request, PurchaseService $purchaseService){
+    public function create(Request $request, TransactionService $transaction){
         //echo $request . "\n";
         $this->validate($request, [
             'company_id' => 'required',
@@ -38,6 +38,6 @@ class PurchaseController extends Controller
             "details" => 'required'
         ]);
 
-        return $purchaseService->purchase($request);
+        return $transaction->purchase($request);
     }
 }
