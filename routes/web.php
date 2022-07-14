@@ -21,7 +21,7 @@ $router->get('/', function () use ($router) {
 
 Route::group(['prefix' => 'products'], 
     function () use ($router) {
-        Route::get('/{id}', 'ProductController@index');
+        Route::get('/{id}', 'ProductController@details');
         Route::get('/', [
             'as' => 'ProductHome',
             'uses' => 'ProductController@index'

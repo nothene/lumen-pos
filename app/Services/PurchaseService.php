@@ -9,7 +9,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Carbon;
 
-class PurchaseService {
+class TransactionService {
+    function sell(Request $request){
+        
+    }
+
     function purchase(Request $request){
         $purchase = new PurchaseTransaction;
 
@@ -36,7 +40,20 @@ class PurchaseService {
 
             // add to onhands qty
             $onhands = ProductOnhand::where('product_id', $d['raw_material_id'])
-                        ->where('company_id', $request->input('company_id'));
+                        ->where('company_id', $request->input('company_id'))->first();
+
+            echo $onhands . "\n";
+
+            if($onhands == null){
+                $onhands = new ProductOnhand;
+                $onhands->product_id = $d['raw_material_id'];
+                $onhands->company_id = $request->input('company_id');
+                $onhands->qty = $purchaseDetail->qty;
+                $onhands->save();
+            } else {
+                $onhands->qty = $onhands->qty + $purchaseDetail->qty;
+                $onhands->update();
+            }
 
             $purchaseDetail->price = $d['price'];
             $multiplier = 1.0;
@@ -49,9 +66,11 @@ class PurchaseService {
                 $purchaseDetail->disc_2 = $d['disc_2'];
                 $multiplier *= (1.0 - $purchaseDetail->disc_2);
             }
+            
+            // need to check rounding?
             $disc_amount = ($d['qty'] * $d['price']) * (1.0 - $multiplier);
             $purchaseDetail->disc_amount = $disc_amount;
-            $purchaseDetail->total = ($d['qty'] * $d['price']) * $multiplier;
+            $purchaseDetail->total = (($d['qty'] * $d['price']) * $multiplier);
 
             $sub_total += ($d['qty'] * $d['price']);
             $disc_amount_total += $disc_amount;
@@ -59,6 +78,7 @@ class PurchaseService {
             $purchaseDetail->save();
         }
 
+        echo "sub: " . $sub_total . " disc: " . $disc_amount_total . "\n";
         $purchase->sub_total = $sub_total;
         $purchase->disc_amount = $disc_amount_total;
         $purchase->grand_total = $sub_total - $disc_amount_total;

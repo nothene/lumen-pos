@@ -19,20 +19,16 @@ class ProductController extends Controller
         //
     }
 
-    public function index($id = null){
-        if($id == null){
-            $products = Product::orderBy('ID')->get();
-            $prices = Product::orderBy('ID')->get()->prices;
-            return response()->json([$products], 200);
-        }
-        else{
-            $products = Product::find($id);
-            $prices = Product::find($id)->prices;
-            $quantity = Product::find($id)->quantity()->get();
-            return response()->json([$products, $prices, $quantity], 200);
-        }
-        
-        
+    public function details($id){
+        $products = Product::find($id);
+        $prices = Product::find($id)->prices;
+        $quantity = Product::find($id)->quantity()->get();
+        return response()->json([$products, $prices, $quantity], 200);
+    }
+
+    public function index(){
+        $products = Product::orderBy('ID')->get();
+        return response()->json([$products], 200);
     }    
 
     public function create(Request $request){

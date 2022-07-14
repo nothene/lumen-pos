@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('qty');
             // per uom
             $table->bigInteger('price');
-            $table->decimal('disc_1', 8, 4)->nullable();
-            $table->decimal('disc_2', 8, 4)->nullable();
+            $table->decimal('disc_1', 5, 2)->nullable();
+            $table->decimal('disc_2', 5, 2)->nullable();
             $table->bigInteger('disc_amount')->nullable();
             // with discounts applied
             $table->bigInteger('total');
