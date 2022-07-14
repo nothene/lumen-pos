@@ -25,11 +25,22 @@ class PriceService {
         return response($newProductPrice, 200);
     }
 
-    function getCurrentPrice($company_id, $product_id){
+    function getLatestPrice($company_id, $product_id){
         // published at must be earlier than now
         $curProductPrice = ProductPrice::where('company_id', $company_id)
                         ->where('product_id', $product_id)
                         ->where('published_at', '<=', Carbon::now())
+                        ->orderBy('published_at', 'desc')
+                        ->first();
+
+        return $curProductPrice;
+    }
+
+    function getPriceAtTime($company_id, $product_id, Carbon $dateTime){
+        // published at must be earlier than now
+        $curProductPrice = ProductPrice::where('company_id', $company_id)
+                        ->where('product_id', $product_id)
+                        ->where('published_at', '<=', $dateTime)
                         ->orderBy('published_at', 'desc')
                         ->first();
 

@@ -11,7 +11,7 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class SellTransactionDetail extends Model
 {
-    protected $table = 'companies';
+    protected $table = 'sell_transaction_details';
     protected $primaryKey = 'ID';
 
     /**

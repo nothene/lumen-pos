@@ -88,6 +88,6 @@ class ProductController extends Controller
         $product->uom_name = $request->input('uom_name');
         $product->recipe_id = $request->input('recipe_id');
 
-        $product->save();
+        $product->update();
     }    
 }

@@ -21,6 +21,18 @@ class ProductPriceSeeder extends Seeder
             [
                 'company_id' => 1,
                 'product_id' => 1,
+                'price' => 3000,
+                'published_at' => Carbon::now()->subYears(20),            
+            ],      
+            [
+                'company_id' => 1,
+                'product_id' => 2,
+                'price' => 5000,
+                'published_at' => Carbon::now()->subYears(20),            
+            ],                          
+            [
+                'company_id' => 1,
+                'product_id' => 1,
                 'price' => 4000,
                 'published_at' => Carbon::now(),
             ],       
@@ -34,7 +46,7 @@ class ProductPriceSeeder extends Seeder
                 'company_id' => 1,
                 'product_id' => 1,
                 'price' => 6000,
-                'published_at' => Carbon::now(),            
+                'published_at' => Carbon::now()->addHour(),            
             ]
         ];
 

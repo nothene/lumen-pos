@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SellTransaction;
+use App\Services\PriceService;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Throwable;
@@ -29,7 +30,7 @@ class SellController extends Controller
         return response()->json($sell, 200);
     }    
 
-    public function create(Request $request, TransactionService $transaction){
+    public function create(Request $request, TransactionService $transaction, PriceService $priceService){
         //echo $request . "\n";
         $this->validate($request, [
             'company_id' => 'required',
@@ -38,6 +39,6 @@ class SellController extends Controller
             "details" => 'required'
         ]);
 
-        return $transaction->purchase($request);
+        return $transaction->sell($request, $priceService);
     }
 }

@@ -85,7 +85,9 @@ class RecipeController extends Controller
         $recipe->name = $request->input('name');
         $recipe->notes = $request->input('notes');
 
-        $recipe->save();
+        // use update
+        // save creates a new record
+        $recipe->update();
 
         $ingredients = $request->input('ingredients');
 
@@ -99,7 +101,7 @@ class RecipeController extends Controller
                 ['qty_needed' => $i['qty']]
             );
 
-            $ingredient->save();
+            $ingredient->update();
         }
             
         return response('Recipe updated successfully', 200);

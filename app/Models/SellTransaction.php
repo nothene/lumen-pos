@@ -41,5 +41,8 @@ class SellTransaction extends Model
     protected $hidden = [
     ];
 
+    public function details(){
+        return $this->hasMany(SellTransactionDetail::class, 'sell_transaction_id', 'ID');
+    }
     
 }

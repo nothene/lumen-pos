@@ -72,12 +72,15 @@ Route::group(['prefix' => 'production'],
 
 Route::group(['prefix' => 'price'], 
     function () use ($router) {
-        Route::get('/{cId}/{pId}', [
+        Route::get('/', [
             'uses' => 'PriceController@index'
-        ]);        
-        Route::post('/{id}', [
+        ]);
+        Route::post('/', [
             'uses' => 'PriceController@create'
         ]);
+        Route::delete('/{id}', [
+            'uses' => 'PriceController@delete'
+        ]);        
     }
 );    
 

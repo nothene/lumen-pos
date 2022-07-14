@@ -18,14 +18,14 @@ return new class extends Migration
             $table->integer('company_id')->unsigned()->nullable();
             $table->timestamp('transaction_date')->nullable();
             $table->string('customer_name')->nullable();
-            $table->boolean('is_cancelled')->nullable();
+            $table->boolean('is_cancelled')->default(false)->nullable();
             $table->timestamp('cancelled_at')->nullable();
-            $table->boolean('is_printed')->nullable();
+            $table->boolean('is_printed')->default(false)>nullable();
             $table->timestamp('printed_at')->nullable();
             $table->bigInteger('sub_total')->nullable();
             $table->integer('disc_amount')->nullable();
             $table->bigInteger('grand_total')->nullable();
-            $table->text('notes');
+            $table->text('notes')->nullable();
 
             // $table->foreign('company_id')->references('ID')
             //     ->on('companies')->onDelete('set null');            
