@@ -43,7 +43,7 @@ class ProductSeeder extends Seeder
                 'code' => 'TPG',
                 'is_raw_material' => true,
                 'is_active' => true,
-                'uom_name' => 'gram',
+                'uom_name' => 'ons',
             ],  
             [
                 'company_id' => 2,
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
                 'code' => 'SSBBK',
                 'is_raw_material' => true,
                 'is_active' => true,
-                'uom_name' => 'gram',
+                'uom_name' => 'ons',
             ],              
             [
                 'company_id' => 2,
@@ -67,7 +67,7 @@ class ProductSeeder extends Seeder
                 'code' => 'MRGNDN',
                 'is_raw_material' => true,
                 'is_active' => true,
-                'uom_name' => 'gram',
+                'uom_name' => 'ons',
             ],         
             [
                 'company_id' => 2,
@@ -75,7 +75,7 @@ class ProductSeeder extends Seeder
                 'code' => 'BHN',
                 'is_raw_material' => true,
                 'is_active' => true,
-                'uom_name' => 'gram',
+                'uom_name' => 'ons',
             ],                                      
             [
                 'company_id' => 3,

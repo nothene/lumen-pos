@@ -37,4 +37,7 @@ class RecipeDetail extends Model
         return $this->belongsTo(Product::class, 'product_id', 'ID');
     }
 
+    public function recipe(){
+        return $this->belongsTo(Recipe::class, 'recipe_id', 'ID');
+    }
 }

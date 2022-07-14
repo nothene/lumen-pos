@@ -38,11 +38,7 @@ class PurchaseTransaction extends Model
     protected $hidden = [
     ];
 
-    public function prices(){
-        return $this->hasMany(ProductPrice::class, 'product_id', 'ID');
-    }
- 
-    public function recipe(){
-
+    public function details(){
+        return $this->hasMany(PurchaseTransactionDetail::class, 'purchase_transaction_id', 'ID');
     }
 }

@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('purchase_transaction_details', function (Blueprint $table) {
             $table->increments('ID')->unsigned();
-            $table->integer('purchase_transaction_id')->unsigned();
+            $table->integer('purchase_transaction_id')->unsigned()->onDelete('cascade');
             $table->integer('raw_material_id')->unsigned();
             $table->integer('qty');
+            // per uom
             $table->bigInteger('price');
-            $table->integer('disc_1')->nullable();
-            $table->integer('disc_2')->nullable();
-            $table->integer('disc_amount')->nullable();
+            $table->decimal('disc_1', 8, 4)->nullable();
+            $table->decimal('disc_2', 8, 4)->nullable();
+            $table->bigInteger('disc_amount')->nullable();
+            // with discounts applied
             $table->bigInteger('total');
 
             // $table->foreign('purchase_transaction_id')->references('ID')

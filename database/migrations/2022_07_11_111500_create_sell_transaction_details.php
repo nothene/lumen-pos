@@ -19,11 +19,11 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('qty');
             $table->bigInteger('price');
-            $table->integer('disc_1');
-            $table->integer('disc_2');
-            $table->integer('disc_amount');
+            $table->decimal('disc_1', 8, 4)->nullable();
+            $table->decimal('disc_2', 8, 4)->nullable();
+            $table->bigInteger('disc_amount')->nullable();
             $table->bigInteger('total');
-            $table->integer('cogs');
+            $table->integer('cogs')->nullable();
 
             // $table->foreign('sell_transaction_id')->references('ID')
             //     ->on('sell_transactions')->onDelete('set null');

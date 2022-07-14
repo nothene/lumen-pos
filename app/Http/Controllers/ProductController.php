@@ -36,16 +36,6 @@ class ProductController extends Controller
     }    
 
     public function create(Request $request){
-        //echo $request;
-
-        // echo PHP_EOL;
-
-        $data = $request->all();
-
-        foreach($data as $d){
-            echo $d . PHP_EOL;
-        }
-
         $this->validate($request, [
             'name' => ['required', 'unique:products'],
             'is_raw_material' => ['required'],

@@ -1,0 +1,35 @@
+{
+	"company_id": 1,
+	"transaction_date": "2022-7-12",
+	"supplier_name": "Toko Bahan Kue Surabaya Baru",
+	"details": [{
+			"raw_material_id": 3,
+			"qty": 500,
+			"price": 100,
+			"disc_1": 0.1
+		}, {
+			"raw_material_id": 4,
+			"qty": 300,
+			"price": 500,
+			"disc_1": 0.1
+		},
+		{
+			"raw_material_id": 5,
+			"qty": 50,
+			"price": 2000,
+			"disc_1": 0.1
+		},
+		{
+			"raw_material_id": 6,
+			"qty": 500,
+			"price": 3000,
+			"disc_1": 0.1
+		},
+		{
+			"raw_material_id": 7,
+			"qty": 50,
+			"price": 2000,
+			"disc_1": 0.1
+		}
+	]
+}

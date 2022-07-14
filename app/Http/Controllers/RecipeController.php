@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\RecipeDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Throwable;
@@ -19,49 +20,42 @@ class RecipeController extends Controller
         //
     }
 
-    public function index($id = null){
-        if($id == null){
-            $recipes = Recipe::orderBy('ID')->get();
-        }
-        else{
-            $recipes = Recipe::where('ID', $id)->get();
-        }
+    public function index(){
+        $recipes = Recipe::orderBy('ID')->get();
         return response()->json($recipes, 200);
     }    
 
     public function create(Request $request){
-        //echo $request;
-
-        // echo PHP_EOL;
-
-        $data = $request->all();
-
-        foreach($data as $d){
-            echo $d . PHP_EOL;
-        }
-
         $this->validate($request, [
-            'name' => ['required', 'unique:products'],
-            'is_raw_material' => ['required'],
-            'is_active' => ['required'],
+            'company_id' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'ingredients' => 'required',
+            'notes' => 'required'
         ]);
 
-        $product = new Recipe;
+        $recipe = new Recipe;
 
-        if($request->input('company_id')){
-            $product->company_id = $request->input('company_id');
-        }        
-        $product->code = $request->input('code');
-        $product->name = $request->input('name');
-        $product->color = $request->input('color');
-        $product->is_raw_material = $request->input('is_raw_material');
-        $product->is_active = $request->input('is_active');
-        $product->uom_name = $request->input('uom_name');
-        $product->recipe_id = $request->input('recipe_id');
+        $recipe->company_id = $request->input('company_id');
+        $recipe->code = $request->input('code');
+        $recipe->name = $request->input('name');
+        $recipe->notes = $request->input('notes');
 
-        $product->save();
+        $recipe->save();
+
+        $ingredients = $request->input('ingredients');
+
+        foreach($ingredients as $i){
+            //echo $i['ID'] . " " . $i['qty'] . "\n";
+            $ingredient = new RecipeDetail;
+            $ingredient->recipe_id = $recipe->ID;
+            $ingredient->product_id = $i['ID'];
+            $ingredient->qty_needed = $i['qty'];
+
+            $ingredient->save();
+        }
             
-        return response('Product created successfully', 200);
+        return response('Recipe created successfully', 200);
     }    
 
     public function delete($id){
@@ -74,29 +68,41 @@ class RecipeController extends Controller
         return response('Recipe deleted'. 200);
     }     
     
+    // handle details
     public function update(Request $request, $id){
-        $product = Recipe::find($id);
-
-        if(!$product){
-            return response('Recipe is not found', 404);
-        }
-
         $this->validate($request, [
-            'name' => ['required'],
-            'is_raw_material' => ['required'],
-            'is_active' => ['required'],
+            'company_id' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'ingredients' => 'required',
+            'notes' => 'required'
         ]);
 
-        $product->company_id = $request->input('company_id');
-        $product->code = $request->input('code');
-        $product->name = $request->input('name');
-        $product->color = $request->input('color');
-        $product->is_raw_material = $request->input('is_raw_material');
-        $product->is_active = $request->input('is_active');
-        $product->uom_name = $request->input('uom_name');
-        $product->recipe_id = $request->input('recipe_id');
+        $recipe = Recipe::find($id);
 
-        $product->save();
+        $recipe->company_id = $request->input('company_id');
+        $recipe->code = $request->input('code');
+        $recipe->name = $request->input('name');
+        $recipe->notes = $request->input('notes');
+
+        $recipe->save();
+
+        $ingredients = $request->input('ingredients');
+
+        foreach($ingredients as $i){
+            //echo $i['ID'] . " " . $i['qty'] . "\n";
+            $ingredient = RecipeDetail::updateOrCreate(
+                [
+                    'recipe_id' => $id,
+                    'product_id' => $i['ID']
+                ],
+                ['qty_needed' => $i['qty']]
+            );
+
+            $ingredient->save();
+        }
+            
+        return response('Recipe updated successfully', 200);
     }
 
     public function getIngredient($id){
@@ -104,6 +110,7 @@ class RecipeController extends Controller
         $ingredients = Recipe::find($id)->detail
             ->map(function ($i, $note) {
                 return  [
+                    "ID" => $i->product->ID,
                     "name" => $i->product->name,
                     "qty" => $i->qty_needed,
                     "uom_name" => $i->product->uom_name,
@@ -125,9 +132,7 @@ class RecipeController extends Controller
         //     echo $i;
         // }, $ingredients);
 
-        return response([
-            "ingredients" => $ingredients, 
-            "notes" => $note
-        ], 200);
+        return response($ingredients, 200);
     }
 }
+
