@@ -86,7 +86,7 @@ Route::group(['prefix' => 'price'],
 
 Route::group(['prefix' => 'purchase'], 
     function () use ($router) {
-        Route::get('/{id}', 'PurchaseController@detail');
+        Route::get('/{id}', 'PurchaseController@details');
         Route::get('/', [
             'uses' => 'PurchaseController@index'
         ]);
@@ -98,7 +98,7 @@ Route::group(['prefix' => 'purchase'],
 
 Route::group(['prefix' => 'sell'], 
     function () use ($router) {
-        Route::get('/{id}', 'SellController@detail');
+        Route::get('/{id}', 'SellController@details');
         Route::get('/', [
             'uses' => 'SellController@index'
         ]);
@@ -107,3 +107,16 @@ Route::group(['prefix' => 'sell'],
         ]);
     }
 );    
+
+Route::group(['prefix' => 'companies'], 
+    function () use ($router) {
+        Route::get('/{id}', 'CompanyController@details');
+        Route::get('/', [
+            'uses' => 'CompanyController@index'
+        ]);
+        Route::post('/', [
+            'uses' => 'CompanyController@create'
+        ]);
+    }
+);    
+

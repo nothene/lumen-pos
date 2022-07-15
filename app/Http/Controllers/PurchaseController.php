@@ -9,17 +9,18 @@ use Throwable;
 
 class PurchaseController extends Controller
 {
+    protected $service;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TransactionService $service)
     {
-        //
+        $this->service = $service;
     }
 
-    public function detail($id){
+    public function details($id){
         $purchaseDetail = PurchaseTransaction::find($id)->details;
         return response()->json($purchaseDetail, 200);
     }        
@@ -29,7 +30,7 @@ class PurchaseController extends Controller
         return response()->json($purchase, 200);
     }    
 
-    public function create(Request $request, TransactionService $transaction){
+    public function create(Request $request){
         //echo $request . "\n";
         $this->validate($request, [
             'company_id' => 'required',
@@ -38,6 +39,6 @@ class PurchaseController extends Controller
             "details" => 'required'
         ]);
 
-        return $transaction->purchase($request);
+        return $this->service->purchase($request);
     }
 }

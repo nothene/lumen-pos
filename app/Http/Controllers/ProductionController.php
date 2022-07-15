@@ -11,14 +11,15 @@ use Throwable;
 
 class ProductionController extends Controller
 {
+    protected $service;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ProductionService $service)
     {
-        //
+        $this->service = $service;
     }
 
     public function index($id = null){
@@ -31,11 +32,11 @@ class ProductionController extends Controller
         return response()->json($production, 200);
     }    
 
-    public function create(Request $request, ProductionService $productionService){
+    public function create(Request $request){
         $this->validate($request, [
             'recipe_id' => 'required',
             'qty_produced' => 'required'
         ]);
-        return $productionService->produce($request);
+        return $this->service->produce($request);
     }
 }

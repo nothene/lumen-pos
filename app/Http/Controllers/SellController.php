@@ -10,17 +10,21 @@ use Throwable;
 
 class SellController extends Controller
 {
+    protected $transactionService;
+    protected $priceService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TransactionService $transactionService, PriceService $priceService)
     {
-        //
+        $this->transactionService = $transactionService;
+        $this->priceService = $priceService;
     }
 
-    public function detail($id){
+    public function details($id){
         $sellDetail = SellTransaction::find($id)->details;
         return response()->json($sellDetail, 200);
     }        
@@ -30,7 +34,7 @@ class SellController extends Controller
         return response()->json($sell, 200);
     }    
 
-    public function create(Request $request, TransactionService $transaction, PriceService $priceService){
+    public function create(Request $request){
         //echo $request . "\n";
         $this->validate($request, [
             'company_id' => 'required',
@@ -39,6 +43,6 @@ class SellController extends Controller
             "details" => 'required'
         ]);
 
-        return $transaction->sell($request, $priceService);
+        return $this->transactionService->sell($request, $this->priceService);
     }
 }
