@@ -28,12 +28,12 @@ class ProductController extends Controller
 
     public function index(){
         $products = Product::orderBy('ID')->get();
-        return response()->json([$products], 200);
+        return response()->json($products, 200);
     }    
 
     public function create(Request $request){
         $this->validate($request, [
-            'name' => ['required', 'unique:products'],
+            'name' => ['required'],
             'is_raw_material' => ['required'],
             'is_active' => ['required'],
         ]);

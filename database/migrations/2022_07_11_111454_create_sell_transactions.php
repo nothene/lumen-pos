@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('customer_name')->nullable();
             $table->boolean('is_cancelled')->default(false)->nullable();
             $table->timestamp('cancelled_at')->nullable();
-            $table->boolean('is_printed')->default(false)>nullable();
+            $table->boolean('is_printed')->default(false)->nullable();
             $table->timestamp('printed_at')->nullable();
             $table->bigInteger('sub_total')->nullable();
             $table->integer('disc_amount')->nullable();
