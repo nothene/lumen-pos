@@ -41,6 +41,7 @@ class TransactionService {
 
         $sub_total = 0;
         $disc_amount_total = 0;
+        $negativeStock = false;
 
         foreach($details as $d){
             $sellDetail = new SellTransactionDetail;
@@ -58,10 +59,21 @@ class TransactionService {
                 $onhands = new ProductOnhand;
                 $onhands->product_id = $d['product_id'];
                 $onhands->company_id = $request->input('company_id');
-                $onhands->qty = -$sellDetail->qty;
+                // if cancelled dont modify onhands
+                if($request->input('is_cancelled')){
+                    $onhands->qty = 0;    
+                } else {
+                    $onhands->qty = -$sellDetail->qty;
+                    $negativeStock = true;
+                }
                 $onhands->save();
             } else {
-                $onhands->qty = $onhands->qty - $sellDetail->qty;
+                if(!$request->input('is_cancelled')){
+                    $onhands->qty = $onhands->qty - $sellDetail->qty;
+                    if($onhands->qty < 0){
+                        $negativeStock = true;
+                    }
+                }
                 $onhands->update();
             }
 
@@ -101,7 +113,10 @@ class TransactionService {
 
         $sell->update();
 
-        return response($sell, 200);        
+        if($negativeStock){
+            return response('Warning -> Stock is negative', 200);        
+        }
+        return response('Sell OK', 200); 
     }
 
     function purchase(Request $request){
@@ -113,6 +128,8 @@ class TransactionService {
 
         if($request->input('is_cancelled') != null){
             $purchase->is_cancelled = $request->input('is_cancelled');
+        } else {
+            $purchase->is_cancelled = false;
         }
 
         $purchase->save();
@@ -127,6 +144,7 @@ class TransactionService {
             $purchaseDetail->purchase_transaction_id = $purchase->ID;
             $purchaseDetail->raw_material_id = $d['raw_material_id'];
             $purchaseDetail->qty = $d['qty'];
+            
 
             // add to onhands qty
             $onhands = ProductOnhand::where('product_id', $d['raw_material_id'])
@@ -138,10 +156,17 @@ class TransactionService {
                 $onhands = new ProductOnhand;
                 $onhands->product_id = $d['raw_material_id'];
                 $onhands->company_id = $request->input('company_id');
-                $onhands->qty = $purchaseDetail->qty;
+                // if cancelled dont add to onhands
+                if($request->input('is_cancelled')){
+                    $onhands->qty = 0; 
+                } else {
+                    $onhands->qty = $purchaseDetail->qty;
+                }
                 $onhands->save();
             } else {
-                $onhands->qty = $onhands->qty + $purchaseDetail->qty;
+                if(!$request->input('is_cancelled')){
+                    $onhands->qty = $onhands->qty + $purchaseDetail->qty;
+                }                
                 $onhands->update();
             }
             
@@ -150,6 +175,7 @@ class TransactionService {
             // do we store supplier as company
             $purchaseDetail->price = $d['price'];
             $multiplier = 1.0;
+            // take disc in fractions
             if(array_key_exists('disc_1', $d) && $d['disc_1']){
                 $purchaseDetail->disc_1 = $d['disc_1'];
                 $multiplier *= (1.0 - $purchaseDetail->disc_1);
@@ -180,6 +206,6 @@ class TransactionService {
 
         $purchase->update();
 
-        return response($purchase, 200);
+        return response('Purchase OK', 200);
     }
 }
