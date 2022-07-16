@@ -57,7 +57,7 @@ Route::group(['prefix' => 'recipes'],
     }
 );    
 
-Route::group(['prefix' => 'production'], 
+Route::group(['prefix' => 'productions'], 
     function () use ($router) {
         Route::get('/{id}', 'ProductionController@index');
         Route::get('/', [

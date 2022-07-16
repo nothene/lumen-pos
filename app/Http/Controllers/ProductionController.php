@@ -34,6 +34,8 @@ class ProductionController extends Controller
 
     public function create(Request $request){
         $this->validate($request, [
+            'company_id' => 'required',
+            'production_date' => 'required',
             'recipe_id' => 'required',
             'qty_produced' => 'required'
         ]);

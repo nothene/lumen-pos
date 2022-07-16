@@ -78,7 +78,8 @@ class ProductOnhandSeeder extends Seeder
                 ['qty' => $i->qty]
             );
         }
-
+        
+        // using create adds the timestamp
         // foreach($data as $i){
         //     ProductOnhand::insert($i);
         // }

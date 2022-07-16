@@ -18,18 +18,17 @@ class ProductionService {
         $production = new Production;
 
         $production->company_id = $request->input('company_id');
-
-        if(!$request->input('production_date')){
-            $production->production_date = Carbon::now();
-        } else {
-            $production->production_date = $request->input('production_date');
-        }
-        
+        $production->production_date = $request->input('production_date');
         $production->recipe_id = $request->input('recipe_id');
         
         $product = $production->product;
-        $production->product_id = $product->ID;
 
+        if($product == null){
+            return response()->json('Please set up the product to use the recipe first.
+                                     This enables the production to add product quantity.', 406);
+        }   
+
+        $production->product_id = $product->ID;     
         $production->qty_produced = $request->input('qty_produced');
 
         $productOnhand = $product->quantity()
