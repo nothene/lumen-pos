@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ProductOnhandSeeder::class,
             ProductPriceSeeder::class,
             ProductionSeeder::class,
+            PurchaseSeeder::class,
         ]);
     }
 }
