@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function details($id){
         $products = Product::find($id);
         $prices = Product::find($id)->prices;
-        $quantity = Product::find($id)->quantity()->get();
+        $quantity = Product::find($id)->quantity()->orderBy('company_id', 'asc')->get();
         return response()->json([$products, $prices, $quantity], 200);
     }
 
