@@ -20,8 +20,6 @@ class PriceService {
 
         $newProductPrice->save(); 
 
-        echo $this->getCurrentPrice($newProductPrice->company_id, $newProductPrice->product_id);
-
         return response($newProductPrice, 200);
     }
 

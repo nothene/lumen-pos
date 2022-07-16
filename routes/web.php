@@ -70,7 +70,7 @@ Route::group(['prefix' => 'production'],
     }
 );    
 
-Route::group(['prefix' => 'price'], 
+Route::group(['prefix' => 'prices'], 
     function () use ($router) {
         Route::get('/', [
             'uses' => 'PriceController@index'

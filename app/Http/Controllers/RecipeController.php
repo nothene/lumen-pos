@@ -46,11 +46,11 @@ class RecipeController extends Controller
         $ingredients = $request->input('ingredients');
 
         foreach($ingredients as $i){
-            //echo $i['ID'] . " " . $i['qty'] . "\n";
+            //echo $i['ID'] . " " . $i['qty_needed'] . "\n";
             $ingredient = new RecipeDetail;
             $ingredient->recipe_id = $recipe->ID;
             $ingredient->product_id = $i['ID'];
-            $ingredient->qty_needed = $i['qty'];
+            $ingredient->qty_needed = $i['qty_needed'];
 
             $ingredient->save();
         }
@@ -92,13 +92,12 @@ class RecipeController extends Controller
         $ingredients = $request->input('ingredients');
 
         foreach($ingredients as $i){
-            //echo $i['ID'] . " " . $i['qty'] . "\n";
             $ingredient = RecipeDetail::updateOrCreate(
                 [
                     'recipe_id' => $id,
                     'product_id' => $i['ID']
                 ],
-                ['qty_needed' => $i['qty']]
+                ['qty_needed' => $i['qty_needed']]
             );
 
             $ingredient->update();
@@ -114,7 +113,7 @@ class RecipeController extends Controller
                 return  [
                     "ID" => $i->product->ID,
                     "name" => $i->product->name,
-                    "qty" => $i->qty_needed,
+                    "qty_needed" => $i->qty_needed,
                     "uom_name" => $i->product->uom_name,
                 ];
             });
@@ -124,7 +123,7 @@ class RecipeController extends Controller
         // foreach($ingredients as $i){
         //     $d = [
         //         "name" => $i->product->name,
-        //         "qty" => $i->qty_needed,
+        //         "qty_needed" => $i->qty_needed,
         //         "uom_name" => $i->product->uom_name,
         //         ];
         //     array_push($data, $d);

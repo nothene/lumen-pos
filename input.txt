@@ -1,15 +1,6 @@
 {
 	"company_id": 1,
-	"transaction_date": "2020-8-13",
-	"customer_name": "Adi",
-	"details": [{
-			"product_id": 1,
-			"qty": 5,
-			"disc_1": 0.2
-		}, {
-			"product_id": 2,
-			"qty": 5,
-			"disc_1": 0.2
-		}
-	]
+    "price": 100,
+    "product_id": 2,
+    "published_at": "2022-07-27 01:38"
 }
