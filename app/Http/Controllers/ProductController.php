@@ -89,5 +89,7 @@ class ProductController extends Controller
         $product->recipe_id = $request->input('recipe_id');
 
         $product->update();
+
+        return response()->json('Product updated successfully', 200);
     }    
 }

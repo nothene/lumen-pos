@@ -91,6 +91,9 @@ class RecipeController extends Controller
 
         $ingredients = $request->input('ingredients');
 
+        // reset the ingredients first
+        $delete = RecipeDetail::where('recipe_id', $id)->delete();
+
         foreach($ingredients as $i){
             $ingredient = RecipeDetail::updateOrCreate(
                 [

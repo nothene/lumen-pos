@@ -43,7 +43,9 @@ class Product extends Model
     }
  
     public function recipe(){
-        return $this->hasOne(Recipe::class, 'product_id', 'ID');
+        // product belongs to a recipe
+        //return $this->hasOne(Recipe::class, 'product_id', 'ID');
+        return $this->belongsTo(Recipe::class, 'recipe_id', 'ID');
     }
 
     public function quantity(){

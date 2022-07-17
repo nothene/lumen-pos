@@ -19,14 +19,20 @@ class ProductionService {
 
         $production->company_id = $request->input('company_id');
         $production->production_date = $request->input('production_date');
-        $production->recipe_id = $request->input('recipe_id');
-        
-        $product = $production->product;
+        $production->product_id = $request->input('product_id');
 
-        if($product == null){
-            return response()->json('Please set up the product to use the recipe first.
-                                     This enables the production to add product quantity.', 406);
+        if($request->input('recipe_id') == null){
+            $production->recipe_id = $production->product->recipe_id;
+        } else {
+            $production->recipe_id = $request->input('recipe_id');
+        }
+
+        if($production->recipe_id == null){
+            echo 'Please set up the product to use a recipe first.';
+            return response()->json('Please set up the product to use a recipe first.', 406);
         }   
+
+        $product = $production->product;
 
         $production->product_id = $product->ID;     
         $production->qty_produced = $request->input('qty_produced');

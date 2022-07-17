@@ -40,8 +40,10 @@ class Production extends Model
     }
 
     public function product(){
-        $recipe = $this->recipe;
-        return $recipe->hasOne(Product::class, 'recipe_id', 'ID');
+        // many product can use the same recipe
+        // $recipe = $this->recipe;
+        // return $recipe->hasOne(Product::class, 'recipe_id', 'ID');
+        return $this->belongsTo(Product::class, 'product_id', 'ID');
     }
 
     public function company(){

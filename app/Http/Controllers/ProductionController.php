@@ -36,7 +36,10 @@ class ProductionController extends Controller
         $this->validate($request, [
             'company_id' => 'required',
             'production_date' => 'required',
-            'recipe_id' => 'required',
+            // better to choose product than recipe
+            // because product can only have one recipe
+            //'recipe_id' => 'required',
+            'product_id' => 'required',
             'qty_produced' => 'required'
         ]);
         return $this->service->produce($request);
