@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
                 'code' => 'JLGKT',
                 'is_raw_material' => false,
                 'is_active' => true,
-                'uom_name' => 'buah',
+                'uom_name' => 'pcs',
                 'recipe_id' => 1,
             ],
             [
@@ -34,7 +34,7 @@ class ProductSeeder extends Seeder
                 'code' => 'JLGKT_L',
                 'is_raw_material' => false,
                 'is_active' => true,
-                'uom_name' => 'buah',
+                'uom_name' => 'pcs',
                 'recipe_id' => 2,
             ],
             [
@@ -59,7 +59,7 @@ class ProductSeeder extends Seeder
                 'code' => 'TLRAYM',
                 'is_raw_material' => true,
                 'is_active' => true,
-                'uom_name' => 'buah',
+                'uom_name' => 'pcs',
             ],                     
             [
                 'company_id' => 2,
