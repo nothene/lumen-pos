@@ -81,6 +81,10 @@ class TransactionService {
             
             if($curPrice == null){
                 $curPrice = $priceService->getLatestPrice($request->input('company_id'), $d['product_id'])->price;
+                if($curPrice == null){
+                    $data = "Price does not exist for the product ". $sellDetail->product->name;
+                    return response($data, 404);
+                }
             }
 
             $sellDetail->price = $curPrice;

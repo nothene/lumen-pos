@@ -101,6 +101,7 @@ class PurchaseSeeder extends Seeder
         foreach($data as $d){
             $http = Http::post('http://localhost:8000/purchase', 
                             json_decode($d));
+            echo $http;
         }
 
         // $data = [
