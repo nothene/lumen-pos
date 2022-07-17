@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use App\Models\ProductOnhand;
+use App\Models\Company;
+use App\Models\Product;
 
 class ProductOnhandSeeder extends Seeder
 {
@@ -16,6 +18,7 @@ class ProductOnhandSeeder extends Seeder
      */
     public function run()
     {
+        
         $data = [
             [
                 'company_id' => 1,
@@ -65,23 +68,42 @@ class ProductOnhandSeeder extends Seeder
         ];
 
         ProductOnhand::truncate();
-
-        $data =  ProductOnhand::factory()->count(100)->make();
         
-        foreach($data as $i){
-            //echo $i . PHP_EOL;
-            $a = ProductOnhand::updateOrCreate(
-                [
-                    'company_id' => $i->company_id,
-                    'product_id' => $i->product_id
-                ], 
-                ['qty' => $i->qty]
-            );
-        }
+        // factory random is unstable
+        //$data =  ProductOnhand::factory()->count(100)->make();
+        
+        // foreach($data as $i){
+        //     //echo $i . PHP_EOL;
+        //     $a = ProductOnhand::updateOrCreate(
+        //         [
+        //             'company_id' => $i->company_id,
+        //             'product_id' => $i->product_id
+        //         ], 
+        //         ['qty' => $i->qty]
+        //     );
+        // }
         
         // using create adds the timestamp
         // foreach($data as $i){
         //     ProductOnhand::insert($i);
         // }
+
+        $company = Company::get();
+        $product = Product::get();        
+
+        echo $company;
+        echo $product;
+
+        foreach($company as $i){
+            foreach($product as $j){
+                $a = ProductOnhand::create(
+                    [
+                        'company_id' => $i->ID,
+                        'product_id' => $j->ID,
+                        'qty' => rand(100, 1000),
+                    ],                     
+                );             
+            }
+        }
     }
 }

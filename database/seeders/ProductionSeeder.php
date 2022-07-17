@@ -46,6 +46,7 @@ class ProductionSeeder extends Seeder
         
         foreach($data as $d){
             $http = Http::post('http://localhost:8000/productions', $d);
+            echo $http;
         }        
 
         // foreach($data as $i){

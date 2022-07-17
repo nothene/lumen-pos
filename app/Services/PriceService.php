@@ -14,9 +14,8 @@ class PriceService {
         $newProductPrice->product_id = $request->input('product_id');
         $newProductPrice->price = $request->input('price');
         // carbon y-m-d h:m:s
-        // utc +7 store in utc+0
-        // assume input is +7
-        $newProductPrice->published_at = Carbon::parse($request->input('published_at'))->subHours(7);        
+        // always store in utc+0
+        $newProductPrice->published_at = Carbon::parse($request->input('published_at'));        
 
         $newProductPrice->save(); 
 

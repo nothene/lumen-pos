@@ -28,7 +28,7 @@ class ProductionService {
         }
 
         if($production->recipe_id == null){
-            echo 'Please set up the product to use a recipe first.';
+            //echo 'Please set up the product to use a recipe first.';
             return response()->json('Please set up the product to use a recipe first.', 406);
         }   
 
@@ -43,8 +43,8 @@ class ProductionService {
 
         $recipeDetail = $production->recipe->detail;
 
-        echo "Product name: " . $product->name . "\n";
-        echo "Company name: " . $production->company->name . "\n";
+        //echo "Product name: " . $product->name . "\n";
+        //echo "Company name: " . $production->company->name . "\n";
 
         // reduce raw material (product) quantity on company producing the product
         // need to check how many we can make with the available ingredient
@@ -56,18 +56,18 @@ class ProductionService {
             $curProductOnhand = $d->product->quantity->where('company_id', $production->company_id)->first();
         
             $leastAmount = (int)max(0, min($leastAmount, $curProductOnhand->qty / $d->qty_needed));
-            echo "You can only make " . (int)($curProductOnhand->qty / $d->qty_needed) . " pcs max\n";
+            //echo "You can only make " . (int)($curProductOnhand->qty / $d->qty_needed) . " pcs max\n";
         }        
 
-        echo "Maximum with available ingredients: " . $leastAmount . "\n";
+        //echo "Maximum with available ingredients: " . $leastAmount . "\n";
 
         foreach($recipeDetail as $d){
             $curProductOnhand = $d->product->quantity->where('company_id', $production->company_id)->first();
-            echo $d->product->name . "\n";
-            echo "------------------------\n";
-            echo "qnt on hand: " . $curProductOnhand->qty . " " . $d->product->uom_name . "\n";
-            echo "needed per pcs: " . $d->qty_needed . " " . $d->product->uom_name .  "\n";
-            echo "needed total: " . $d->qty_needed * $production->qty_produced . " " . $d->product->uom_name .  "\n";
+            //echo $d->product->name . "\n";
+            //echo "------------------------\n";
+            //echo "qnt on hand: " . $curProductOnhand->qty . " " . $d->product->uom_name . "\n";
+            //echo "needed per pcs: " . $d->qty_needed . " " . $d->product->uom_name .  "\n";
+            //echo "needed total: " . $d->qty_needed * $production->qty_produced . " " . $d->product->uom_name .  "\n";
             
             if($forceProduction){
                 $curProductOnhand->qty = $curProductOnhand->qty - ($d->qty_needed * $production->qty_produced); 
@@ -77,14 +77,14 @@ class ProductionService {
             
             $curProductOnhand->save();
 
-            echo "Product qnt on hand after production: " . $curProductOnhand->qty . "\n";
+            //echo "Product qnt on hand after production: " . $curProductOnhand->qty . "\n";
 
-            echo "------------------------\n\n";
+            //echo "------------------------\n\n";
         }
 
         
         
-        echo $productOnhand; 
+        //echo $productOnhand; 
 
         if(!$productOnhand){
             $newProductOnhand = new ProductOnhand;
@@ -92,28 +92,28 @@ class ProductionService {
             $newProductOnhand->product_id = $production->product_id;
 
             if($forceProduction){
-                echo "qty on hand to be added: " . $production->qty_produced . "\n";
+                //echo "qty on hand to be added: " . $production->qty_produced . "\n";
                 $newProductOnhand->qty = $production->qty_produced;                
             } else {
-                echo "qty on hand to be added: " . $leastAmount . "\n";
+                //echo "qty on hand to be added: " . $leastAmount . "\n";
                 $newProductOnhand->qty = $leastAmount;
             }
 
             $newProductOnhand->save();
-            echo "New product onhand: " . $newProductOnhand . "\n";
+            //echo "New product onhand: " . $newProductOnhand . "\n";
         } else {
-            echo "\ncurrent qty on hand: " . $productOnhand->qty . "\n";
+            //echo "\ncurrent qty on hand: " . $productOnhand->qty . "\n";
 
             if($forceProduction){
-                echo "qty on hand to be added: " . $production->qty_produced . "\n";
+                //echo "qty on hand to be added: " . $production->qty_produced . "\n";
                 $productOnhand->qty = $productOnhand->qty + $production->qty_produced; 
             } else {
-                echo "qty on hand to be added: " . $leastAmount . "\n";
+                //echo "qty on hand to be added: " . $leastAmount . "\n";
                 $productOnhand->qty = $productOnhand->qty + $leastAmount;                 
             }
             
 
-            echo "Update product onhand: " . $productOnhand . "\n";
+            //echo "Update product onhand: " . $productOnhand . "\n";
 
             $productOnhand->save();
         }
@@ -138,9 +138,12 @@ class ProductionService {
         }
 
         $production->save();        
+
+        $msg = 'Production is forced. You can normally make ' . 
+                $leastAmount . ' using available ingredients';
         
         if($forceProduction){
-            return response('Production is forced and may affect the quality of the product', 200);
+            return response($msg, 200);
         } else {
             return response('Production all fine', 200);
         }
