@@ -19,7 +19,7 @@ class TransactionService {
         $sell->transaction_date = Carbon::parse($request->input('transaction_date'));
         $sell->customer_name = $request->input('customer_name');
 
-        echo $request->input . "\n";
+        //echo $request->input . "\n";
 
         if($request->input('is_cancelled') != null){
             $sell->is_cancelled = $request->input('is_cancelled');
@@ -49,7 +49,7 @@ class TransactionService {
             $sellDetail->product_id = $d['product_id'];
             $sellDetail->qty = $d['qty'];
 
-            // add to onhands qty
+            // remove onhands qty
             $onhands = ProductOnhand::where('product_id', $d['product_id'])
                         ->where('company_id', $request->input('company_id'))->first();
 
@@ -82,8 +82,11 @@ class TransactionService {
             if($curPrice == null){
                 $curPrice = $priceService->getLatestPrice($request->input('company_id'), $d['product_id'])->price;
                 if($curPrice == null){
-                    $data = "Price does not exist for the product ". $sellDetail->product->name;
-                    return response($data, 404);
+                    $curPrice = $priceService->getAnyPrice($request->input('company_id'), $d['product_id'])->price;
+                    if($curPrice == null){
+                        $data = "Price does not exist at any point for this product " . $sellDetail->product->name;
+                        return response($data, 404);
+                    }                    
                 }
             }
 
@@ -154,7 +157,7 @@ class TransactionService {
             $onhands = ProductOnhand::where('product_id', $d['raw_material_id'])
                         ->where('company_id', $request->input('company_id'))->first();
 
-            echo $onhands . "\n";
+            //echo $onhands . "\n";
 
             if($onhands == null){
                 $onhands = new ProductOnhand;

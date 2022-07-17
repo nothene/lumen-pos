@@ -92,7 +92,39 @@ class ProductSeeder extends Seeder
                 'is_raw_material' => false,
                 'is_active' => true,
                 'uom_name' => 'bungkus',
-            ],            
+            ],          
+            [
+                'company_id' => 2,
+                'name' => 'Susu UHT Supermilk',
+                'code' => 'SUSUHTSU',
+                'is_raw_material' => true,
+                'is_active' => true,
+                'uom_name' => 'liter',
+            ],
+            [
+                'company_id' => 1,
+                'name' => 'Coca-Cola 330ml',
+                'code' => 'COCA330ML',
+                'is_raw_material' => false,
+                'is_active' => true,
+                'uom_name' => 'botol',
+            ],                           
+            [
+                'company_id' => 1,
+                'name' => 'Coca-Cola 1L',
+                'code' => 'COCA1L',
+                'is_raw_material' => false,
+                'is_active' => true,
+                'uom_name' => 'botol',
+            ],
+            [
+                'company_id' => 1,
+                'name' => 'Beras Medan',
+                'code' => 'BRSMDN',
+                'is_raw_material' => true,
+                'is_active' => true,
+                'uom_name' => 'kg',
+            ],                                
         ];
 
         Product::truncate();

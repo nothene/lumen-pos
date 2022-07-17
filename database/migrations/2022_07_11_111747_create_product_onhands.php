@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('qty')->nullable();
 
             $table->unique(['company_id', 'product_id']);
+            //$table->index(['company_id', 'product_id']);
 
             // $table->foreign('company_id')->references('ID')
             //     ->on('companies')->onDelete('set null');

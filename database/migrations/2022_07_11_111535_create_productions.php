@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('company_id')->unsigned()->default(1);
             $table->timestamp('production_date')->useCurrent();
             $table->integer('recipe_id')->unsigned();
-            $table->integer('product_id')->unsigned()->nullable();
+            $table->integer('product_id')->unsigned();
             $table->integer('qty_produced')->unsigned();
 
             // $table->foreign('company_id')->references('ID')

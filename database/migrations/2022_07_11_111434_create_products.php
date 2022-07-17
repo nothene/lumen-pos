@@ -17,11 +17,11 @@ return new class extends Migration
             $table->increments('ID')->unsigned();
             $table->integer('company_id')->unsigned()->nullable()->default(1);
             $table->string('code')->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('color')->nullable();
             $table->boolean('is_raw_material');
             $table->boolean('is_active');
-            $table->string('uom_name')->nullable()->default('buah');
+            $table->string('uom_name')->nullable()->default('pcs');
             $table->integer('recipe_id')->unsigned()->nullable();
 
             // $table->foreign('company_id')->references('ID')

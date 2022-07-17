@@ -43,4 +43,13 @@ class PriceService {
 
         return $curProductPrice;
     }
+
+    function getAnyPrice($company_id, $product_id){
+        // published at must be earlier than now
+        $curProductPrice = ProductPrice::where('company_id', $company_id)
+                        ->where('product_id', $product_id)
+                        ->first();
+
+        return $curProductPrice;
+    }    
 }

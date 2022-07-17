@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('ID')->unsigned();
             $table->integer('company_id')->unsigned()->nullable();
             $table->string('code')->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('notes');
 
             // $table->foreign('company_id')->references('ID')
