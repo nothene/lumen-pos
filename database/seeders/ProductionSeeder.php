@@ -22,23 +22,23 @@ class ProductionSeeder extends Seeder
             [
                 'company_id' => 1,
                 //'recipe_id' => 1,
-                'product_id' => 1,
+                'product_id' => 20,
                 'production_date' => Carbon::now()->subDays(13),            
-                'qty_produced' => 5,
+                'qty_produced' => 3,
             ],      
             [
                 'company_id' => 2,
                 //'recipe_id' => 1,
-                'product_id' => 1,
+                'product_id' => 21,
                 'production_date' => Carbon::now()->subDays(20),     
-                'qty_produced' => 10,       
+                'qty_produced' => 3       
             ],                  
             [
                 'company_id' => 1,
                 //'recipe_id' => 2,
-                'product_id' => 1,
+                'product_id' => 22,
                 'production_date' => Carbon::now()->subDays(5),            
-                'qty_produced' => 7,
+                'qty_produced' => 3,
             ]
         ];
 

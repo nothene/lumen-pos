@@ -97,7 +97,7 @@ class ProductOnhandSeeder extends Seeder
                     [
                         'company_id' => $i->ID,
                         'product_id' => $j->ID,
-                        'qty' => rand(100, 1000),
+                        'qty' => rand(500, 2000),
                     ],                     
                 );             
             }

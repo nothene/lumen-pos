@@ -18,14 +18,13 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             ProductSeeder::class, 
             RecipeSeeder::class,
-            // ProductSeeder2::class, 
-            // ProductPriceSeeder::class,   
-            // RecipeDetailSeeder::class, 
-            // ProductOnhandSeeder::class,
-            // ProductPriceSeeder::class,
-            // ProductionSeeder::class,
-            // PurchaseSeeder::class,
-            // SellSeeder::class,
+            ProductSeeder2::class, 
+            ProductPriceSeeder::class,
+            ProductOnhandSeeder::class,
+            ProductPriceSeeder::class,
+            ProductionSeeder::class,
+            PurchaseSeeder::class,
+            SellSeeder::class,
         ]);
     }
 }

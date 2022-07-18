@@ -18,7 +18,7 @@ return new class extends Migration
                 ->on('companies')->onDelete('set null');
         
             $table->foreign('recipe_id')->references('ID')
-                ->on('recipes')->onDelete('set null'); 
+                ->on('recipes')->onDelete('set null');
         });
 
         Schema::table('product_price', function (Blueprint $table) {

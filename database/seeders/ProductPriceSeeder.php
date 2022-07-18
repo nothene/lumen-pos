@@ -17,37 +17,51 @@ class ProductPriceSeeder extends Seeder
      */
     public function run()
     {
+        // carbon::now uses utc+0
+        // data inputted from client uses local time (+7)
         $data = [
             [
                 'company_id' => 1,
-                'product_id' => 1,
+                'product_id' => 20,
                 'price' => 3000,
-                'published_at' => Carbon::now()->subYears(20),            
+                'published_at' => Carbon::now()->subHours(20),            
             ],      
             [
                 'company_id' => 1,
-                'product_id' => 2,
+                'product_id' => 21,
                 'price' => 5000,
-                'published_at' => Carbon::now()->subYears(20),            
+                'published_at' => Carbon::now()->subHours(20),            
             ],                          
             [
                 'company_id' => 1,
-                'product_id' => 1,
-                'price' => 4000,
-                'published_at' => Carbon::now(),
+                'product_id' => 22,
+                'price' => 10000,
+                'published_at' => Carbon::now()->subHours(20),
             ],       
             [
                 'company_id' => 1,
-                'product_id' => 2,
-                'price' => 6000,
-                'published_at' => Carbon::now(),            
+                'product_id' => 6,
+                'price' => 16000,
+                'published_at' => Carbon::now()->subHours(20),            
             ],
             [
                 'company_id' => 1,
-                'product_id' => 1,
+                'product_id' => 7,
+                'price' => 16000,
+                'published_at' => Carbon::now()->subHours(20),            
+            ],
+            [
+                'company_id' => 1,
+                'product_id' => 9,
                 'price' => 6000,
-                'published_at' => Carbon::now()->addHour(),            
-            ]
+                'published_at' => Carbon::now()->subHours(20),            
+            ],
+            [
+                'company_id' => 1,
+                'product_id' => 10,
+                'price' => 10000,
+                'published_at' => Carbon::now()->subHours(20),            
+            ],
         ];
 
         ProductPrice::truncate();

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('recipe_details', function (Blueprint $table) {
             $table->increments('ID')->unsigned();
-            $table->integer('recipe_id')->unsigned();
-            $table->integer('product_id')->unsigned();
+            $table->integer('recipe_id')->unsigned()->nullable();
+            $table->integer('product_id')->unsigned()->nullable();
             $table->integer('qty_needed')->unsigned();
 
             // $table->foreign('recipe_id')->references('ID')

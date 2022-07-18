@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Recipe;
-use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -44,7 +43,7 @@ class RecipeSeeder extends Seeder
         //     ],            
         // ];
 
-        // Recipe::truncate();
+        // //Recipe::truncate();
 
         // foreach($data as $i){
         //     Recipe::create($i);
@@ -58,19 +57,19 @@ class RecipeSeeder extends Seeder
                 "notes": "Ambil semua bahan lalu diaduk dan digoreng",
                 "ingredients": [
                     {
-                        "ID": 3,
+                        "ID": 1,
                         "qty_needed": 100
                     },
                     {
-                        "ID": 5,
+                        "ID": 3,
                         "qty_needed": 1
                     },
                     {
-                        "ID": 6,
+                        "ID": 4,
                         "qty_needed": 50
                     },          
                     {
-                        "ID": 7,
+                        "ID": 5,
                         "qty_needed": 100
                     }          
                 ]
@@ -82,19 +81,19 @@ class RecipeSeeder extends Seeder
                 "notes": "Ambil bahan lebih banyak lalu diaduk dan digoreng",
                 "ingredients": [
                     {
-                        "ID": 3,
+                        "ID": 1,
                         "qty_needed": 200
                     },
                     {
-                        "ID": 5,
+                        "ID": 3,
                         "qty_needed": 2
                     },
                     {
-                        "ID": 6,
+                        "ID": 4,
                         "qty_needed": 100
                     },          
                     {
-                        "ID": 7,
+                        "ID": 5,
                         "qty_needed": 200
                     }                    
                 ]
@@ -106,32 +105,36 @@ class RecipeSeeder extends Seeder
                 "notes": "Ambil bahan lebih banyak lalu diaduk dan dipanggang",
                 "ingredients": [
                     {
-                        "ID": 3,
+                        "ID": 1,
                         "qty_needed": 200
                     },
                     {
-                        "ID": 5,
-                        "qty_needed": 2
+                        "ID": 2,
+                        "qty_needed": 200
                     },
                     {
-                        "ID": 6,
+                        "ID": 4,
                         "qty_needed": 100
                     },          
                     {
-                        "ID": 10,
+                        "ID": 8,
                         "qty_needed": 200
-                    }                    
+                    },              
+                    {
+                        "ID": 18,
+                        "qty_needed": 100
+                    }
                 ]
             }',                                  
         ];    
 
-        Recipe::truncate();
+        //Recipe::truncate();
 
         // does not really work as the two tables rely on each other
         foreach($data as $d){
             $http = Http::post('http://localhost:8000/recipes', 
                             json_decode($d));
-            echo $http;
+            //echo $http;
         }
     }
 }
