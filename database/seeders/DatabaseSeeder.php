@@ -16,15 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CompanySeeder::class,
-            RecipeSeeder::class,
             ProductSeeder::class, 
-            ProductPriceSeeder::class,   
-            RecipeDetailSeeder::class, 
-            ProductOnhandSeeder::class,
-            ProductPriceSeeder::class,
-            ProductionSeeder::class,
-            PurchaseSeeder::class,
-            SellSeeder::class,
+            RecipeSeeder::class,
+            // ProductSeeder2::class, 
+            // ProductPriceSeeder::class,   
+            // RecipeDetailSeeder::class, 
+            // ProductOnhandSeeder::class,
+            // ProductPriceSeeder::class,
+            // ProductionSeeder::class,
+            // PurchaseSeeder::class,
+            // SellSeeder::class,
         ]);
     }
 }

@@ -45,6 +45,8 @@ class RecipeController extends Controller
 
         $ingredients = $request->input('ingredients');
 
+        
+
         foreach($ingredients as $i){
             //echo $i['ID'] . " " . $i['qty_needed'] . "\n";
             $ingredient = new RecipeDetail;

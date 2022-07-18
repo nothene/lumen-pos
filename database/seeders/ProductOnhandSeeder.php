@@ -89,10 +89,7 @@ class ProductOnhandSeeder extends Seeder
         // }
 
         $company = Company::get();
-        $product = Product::get();        
-
-        echo $company;
-        echo $product;
+        $product = Product::get();     
 
         foreach($company as $i){
             foreach($product as $j){

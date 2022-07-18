@@ -204,7 +204,7 @@ class TransactionService {
             $purchaseDetail->save();
         }
 
-        echo "sub: " . $sub_total . " disc: " . $disc_amount_total . "\n";
+        //echo "sub: " . $sub_total . " disc: " . $disc_amount_total . "\n";
         $purchase->sub_total = $sub_total;
         $purchase->disc_amount = $disc_amount_total;
         $purchase->grand_total = $sub_total - $disc_amount_total;

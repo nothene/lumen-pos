@@ -49,17 +49,17 @@ class ProductionService {
         // reduce raw material (product) quantity on company producing the product
         // need to check how many we can make with the available ingredient
         $forceProduction = true;
-        $leastAmount = 1e5;
+        $maxAmount = 1e10;
 
-        // check least first
+        // check max possible first
         foreach($recipeDetail as $d){
             $curProductOnhand = $d->product->quantity->where('company_id', $production->company_id)->first();
         
-            $leastAmount = (int)max(0, min($leastAmount, $curProductOnhand->qty / $d->qty_needed));
+            $maxAmount = (int)max(0, min($maxAmount, $curProductOnhand->qty / $d->qty_needed));
             //echo "You can only make " . (int)($curProductOnhand->qty / $d->qty_needed) . " pcs max\n";
         }        
 
-        //echo "Maximum with available ingredients: " . $leastAmount . "\n";
+        //echo "Maximum with available ingredients: " . $maxAmount . "\n";
 
         foreach($recipeDetail as $d){
             $curProductOnhand = $d->product->quantity->where('company_id', $production->company_id)->first();
@@ -72,7 +72,7 @@ class ProductionService {
             if($forceProduction){
                 $curProductOnhand->qty = $curProductOnhand->qty - ($d->qty_needed * $production->qty_produced); 
             } else {
-                $curProductOnhand->qty = $curProductOnhand->qty - ($d->qty_needed * $leastAmount); 
+                $curProductOnhand->qty = $curProductOnhand->qty - ($d->qty_needed * $maxAmount); 
             }
             
             $curProductOnhand->save();
@@ -95,8 +95,8 @@ class ProductionService {
                 //echo "qty on hand to be added: " . $production->qty_produced . "\n";
                 $newProductOnhand->qty = $production->qty_produced;                
             } else {
-                //echo "qty on hand to be added: " . $leastAmount . "\n";
-                $newProductOnhand->qty = $leastAmount;
+                //echo "qty on hand to be added: " . $maxAmount . "\n";
+                $newProductOnhand->qty = $maxAmount;
             }
 
             $newProductOnhand->save();
@@ -108,41 +108,23 @@ class ProductionService {
                 //echo "qty on hand to be added: " . $production->qty_produced . "\n";
                 $productOnhand->qty = $productOnhand->qty + $production->qty_produced; 
             } else {
-                //echo "qty on hand to be added: " . $leastAmount . "\n";
-                $productOnhand->qty = $productOnhand->qty + $leastAmount;                 
+                //echo "qty on hand to be added: " . $maxAmount . "\n";
+                $productOnhand->qty = $productOnhand->qty + $maxAmount;                 
             }
-            
-
-            //echo "Update product onhand: " . $productOnhand . "\n";
 
             $productOnhand->save();
         }
-
-        // foreach($productCount as $a){
-        //     echo $a . "\n";
-        // }        
-
-        // echo "Company: " . $production->company()->name . " Count: " . $productCount . "\n";
-
-        // echo "Product name: " . $product->name . "\n";
-
-        // echo "Product quantity: \n";
-
-        // foreach($product->quantity as $a){
-        //     $company = $a->company;
-        //     echo $company->name . ": " . $a->qty . "\n";
-        // }  
         
         if(!$forceProduction){
-            $production->qty_produced = $leastAmount;    
+            $production->qty_produced = $maxAmount;    
         }
 
         $production->save();        
 
-        $msg = 'Production is forced. You can normally make ' . 
-                $leastAmount . ' using available ingredients';
+        $msg = 'Production is forced. You can normally make at most ' . 
+                $maxAmount . ' using available ingredients';
         
-        if($forceProduction){
+        if($forceProduction && $maxAmount < $request->input('qty_produced')){
             return response($msg, 200);
         } else {
             return response('Production all fine', 200);
