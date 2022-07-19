@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Recipe;
+use App\Models\RecipeDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -128,7 +129,16 @@ class RecipeSeeder extends Seeder
             }',                                  
         ];    
 
-        //Recipe::truncate();
+        RecipeDetail::truncate();
+
+        // if recipe is truncated products will get truncated too for unknown reasons
+        // Recipe::truncate();
+
+        // works fine but id doesnt restart if seeded by class name
+        $a = Recipe::all();
+        foreach($a as $i){
+            $i->delete();
+        }
 
         // does not really work as the two tables rely on each other
         foreach($data as $d){

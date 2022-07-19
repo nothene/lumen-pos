@@ -173,7 +173,7 @@ class ProductSeeder extends Seeder
             ],                                               
         ];
 
-        //Product::truncate();
+        Product::truncate();
 
         foreach($data as $i){
             Product::create($i);
